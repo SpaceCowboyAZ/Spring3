@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,6 +24,20 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalErrorHandler {
 	private enum LogStatus {
 		STACK_TRACE, MESSAGE_ONLY
+	}
+	/**
+	 * 
+	 * @param e
+	 * @param status
+	 * @param webRequest
+	 * @return
+	 */
+	@ExceptionHandler(MethodArgumentTypeMismatchException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public Map<String, Object> handleMethodArgumentTypeMismatchException(
+			MethodArgumentTypeMismatchException e, WebRequest webRequest) {
+		return createExceptionMessage(e, HttpStatus.BAD_REQUEST, webRequest, 
+				LogStatus.MESSAGE_ONLY);
 	}
 	/**
 	 * 
@@ -93,7 +108,7 @@ public Map<String, Object> handleException(Exception e, WebRequest webRequest) {
 			log.error("Exception: {}", e.toString());
 		}
 		else {
-			log.error("Exception: {}", e);
+			log.error("Exception:", e);
 		}
 		
 		return error;
