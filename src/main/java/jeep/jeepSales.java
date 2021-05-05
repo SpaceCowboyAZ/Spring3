@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication(scanBasePackageClasses = { ComponentScanMarker.class })
 
-@ComponentScan(basePackages={"Jeep"})
+@ComponentScan(basePackages={"Jeepsales"})
 public class jeepSales {
 
 	public static void main(String[] args) {

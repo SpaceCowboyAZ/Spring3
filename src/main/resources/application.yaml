@@ -2,4 +2,4 @@ spring:  datasource:    password: Cheeseistheanswer147    username: root    
 logging:
   level:
     root: warn
-    '[jeepSales]': debug
+    '[Jeepsales]': debug

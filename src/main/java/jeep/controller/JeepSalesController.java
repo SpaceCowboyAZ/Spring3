@@ -26,8 +26,8 @@ import io.swagger.v3.oas.annotations.servers.Server;
 import jeep.Constants;
 
 @Validated
-@RequestMapping("/jeep")
-@OpenAPIDefinition(info = @Info(title = "jeep"), servers = {
+@RequestMapping("/jeeps")
+@OpenAPIDefinition(info = @Info(title = "Jeep Sales Service"), servers = {
 		@Server(url = "http://localhost:8080", description = "Local server.")})
 public interface JeepSalesController {
 	

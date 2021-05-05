@@ -22,7 +22,7 @@ public class DefaultService implements JeepSalesService {
 private JeepSalesDao jeepSalesDao;
 	@Override
 	public List<Jeep> fetchJeeps(jeepModel model, String trim) {
-		log.info("The fetchJeeps method was called with model={} and trim={}",
+		log.info("The fetch Jeeps method was called with model={} and trim={}",
 				model, trim);
 		List<Jeep> jeeps = jeepSalesDao.fetchJeeps(model, trim);
 		

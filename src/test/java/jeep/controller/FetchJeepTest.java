@@ -116,6 +116,8 @@ class FetchJeepTest {
 		class TestsThatPolluteTheApplicationContext extends FetchTestJeep {
 	@MockBean
 	private JeepSalesService jeepsalesservice;
+	
+	
 
 	/**
 	 * 
