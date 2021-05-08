@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-
-
-import entity.Jeep;
-import entity.jeepModel;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -24,7 +20,9 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.servers.Server;
 import jeep.Constants;
-
+import jeep.entity.Jeep;
+import jeep.entity.jeepModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 @Validated
 @RequestMapping("/jeeps")
 @OpenAPIDefinition(info = @Info(title = "Jeep Sales Service"), servers = {
@@ -38,7 +36,7 @@ public interface JeepSalesController {
 			description = "Returns a list of Jeep given an optional model or trim",
 			responses = {
 					@ApiResponse(responseCode = "200", description ="A list of Jeeps returned", 
-							content = @Content(mediaType = "application/json")),
+							content = @Content(mediaType = "application/json", schema = @Schema(implementation = Jeep.class))),
 					@ApiResponse(responseCode = "400", description = "The request parameters are invalid",
 							content = @Content(mediaType = "application/json")),
 					@ApiResponse(responseCode = "404", description = "No jeeps were found with inputs",

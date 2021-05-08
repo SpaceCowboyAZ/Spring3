@@ -25,11 +25,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.jdbc.JdbcTestUtils;
-import entity.Jeep;
-import entity.jeepModel;
 
 import jeep.controller.support.FetchTestJeep;
-import service.JeepSalesService;
+import jeep.entity.Jeep;
+import jeep.entity.jeepModel;
+import jeep.service.JeepSalesService;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
@@ -38,9 +38,9 @@ import service.JeepSalesService;
 config = @SqlConfig(encoding = "utf-8"))
 
 
-class FetchJeepTest {
+class FetchJeepTest extends FetchTestJeep {
 
-}
+
 	
 	
 	@Nested
@@ -65,7 +65,7 @@ class FetchJeepTest {
 		void testThatJeepsAreReturnedWhenAValidModelAndTrimAreSupplied() {
 	jeepModel model = jeepModel.WRANGLER;
 		String trim = "Sport";
-		String URI = String.format("%s?model=%s&trim=%s", getBaseURI(), model, trim);
+		String URI = String.format("%s?model=%s&trim=%s", getBaseURIForJeeps(), model, trim);
 		
 
 				ResponseEntity<List<Jeep>> response = 
@@ -89,7 +89,7 @@ class FetchJeepTest {
 	void testThatErrorMessageIsReturnedWhenAInvalidModelAndTrimAreSupplied(
 			String model, String trim, String reason) {
 
-	String URI = String.format("%s?model=%s&trim=%s", getBaseURI(), model, trim);
+	String URI = String.format("%s?model=%s&trim=%s", getBaseURIForJeeps(), model, trim);
 
 
 			ResponseEntity<Map<String, Object>> response = 
@@ -100,7 +100,7 @@ class FetchJeepTest {
 	 Map<String, Object> error = response.getBody();
 	 
 	 assertErrorMessageValid(error, HttpStatus.BAD_REQUEST);	  }
-	static Stream<Arguments> paramatersForInvalidInput() {
+	 Stream<Arguments> paramatersForInvalidInput() {
 	return Stream.of(
 			arguments("WRANGLER", "@#$%^&&%", "Trim contains non-alpha-numeric chars"));
 			//arguments("WRANGLER", "C".repeat(Constants.TRIM_MAX_LENGTH + 1), "Trim length too long");
@@ -126,7 +126,7 @@ class FetchJeepTest {
 		void testThatAnUnplannedErrorResultsIn500Status() {
 	jeepModel model = jeepModel.WRANGLER;
 		String trim = "Invalid";
-		String URI = String.format("%s?model=%s&trim=%s", getBaseURI(), model, trim);
+		String URI = String.format("%s?model=%s&trim=%s", getBaseURIForJeeps(), model, trim);
 		
 		doThrow(new RuntimeException("No good")).when(jeepsalesservice)
 		.fetchJeeps(model, trim);
@@ -143,7 +143,12 @@ class FetchJeepTest {
 		 
 }
 		
-		}
+	}
+	
+	
+	
+	
+}
 	
 
 

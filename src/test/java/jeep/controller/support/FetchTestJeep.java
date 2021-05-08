@@ -10,8 +10,8 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 
-import entity.Jeep;
-import entity.jeepModel;
+import jeep.entity.Jeep;
+import jeep.entity.jeepModel;
 
 public class FetchTestJeep  extends baseTest {
 	protected List<Jeep> buildExpected() {
